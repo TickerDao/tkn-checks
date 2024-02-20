@@ -10,7 +10,7 @@
     "author": "Kindnesss.eth",
     "license": "ISC",
     "dependencies": {
-        "@ensdomains/ensjs": "^3.4.3",
+        "@ensdomains/ensjs": "^3.4.4",
         "viem": "^1.21.4"
     },
     "devDependencies": {

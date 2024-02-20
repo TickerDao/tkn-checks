@@ -64,4 +64,40 @@ describe('ENS.js Library Tests', () => {
     expect(records.coins.length).toBeGreaterThan(0); // Check if coins array is not empty
     expect(records.contentHash).toBeNull(); // Adjusted based on the provided output
   });
+
+  test('Retrieve records from names in a hybrid resolver', async () => {
+    const token = 'op'; // Chainlink reverse resolver
+    const records = await client.getRecords({
+      name: recordConfig.name(token),
+      coins: recordConfig.coins,
+      texts: recordConfig.texts,
+      contentHash: recordConfig.contentHash
+    });
+
+    // Check if records object is defined
+    expect(records).toBeDefined();
+
+    // Adjusted expectations based on the provided output structure
+    expect(records.texts).toContainEqual(expect.objectContaining({ key: 'name', value: 'Optimism' }));
+    expect(records.coins.length).toBeGreaterThan(0); // Check if coins array is not empty
+    expect(records.contentHash).toBeNull(); // Adjusted based on the provided output
+  });
+
+  test('Retrieve dweb contenthash from a name and verify decoded value', async () => {
+    const token = 'tkn'; // Chainlink reverse resolver
+    const records = await client.getRecords({
+      name: recordConfig.name(token),
+      coins: recordConfig.coins,
+      texts: recordConfig.texts,
+      contentHash: recordConfig.contentHash
+    });
+
+    // Check if records object is defined
+    expect(records).toBeDefined();
+
+    // Adjusted expectations based on the provided output structure
+    expect(records.coins.length).toBeGreaterThan(0); // Check if coins array is not empty
+    // Verify if contentHash.decoded matches the expected IPFS hash
+    expect(records.contentHash.decoded).toEqual('bafybeibeyaoc7y4nvoleq5x3mo3o4a4jazhvrogu236indpzhqkzbaxowu');
+  });
 });
