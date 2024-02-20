@@ -1,0 +1,19 @@
+{
+    "name": "TKN-Tests",
+    "version": "1.0.0",
+    "description": "A testing suite to verify Token Name Service support using multiple libraries and tools",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "test": "jest"
+    },
+    "author": "Kindnesss.eth",
+    "license": "ISC",
+    "dependencies": {
+        "@ensdomains/ensjs": "^3.4.3",
+        "viem": "^1.21.4"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0"
+    }
+}
