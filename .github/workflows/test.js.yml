@@ -1,0 +1,42 @@
+name: Node.js CI with Jest
+
+# This workflow is triggered on pushes and pull requests to the main branch.
+# It sets up Node.js environment and runs Jest tests to ensure code quality.
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+
+    # Specifies the virtual environment to run the job, using the latest Ubuntu version.
+    runs-on: ubuntu-latest
+
+    # Tests the code against multiple versions of Node.js to ensure compatibility.
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+      # Checks out the repository code under $GITHUB_WORKSPACE, so the workflow can access it.
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+      # Sets up a Node.js environment with the specified version, caching dependencies for faster execution.
+
+    - name: Install Dependencies
+      run: npm ci
+      # Installs project dependencies using the package-lock.json file, ensuring consistent installs.
+
+    - name: Run Jest Tests
+      run: npm test
+      env:
+        CI: true
+      # Executes Jest tests. The CI environment variable ensures Jest runs in CI-mode, where test failures will break the build.
+      # This step is crucial for maintaining code quality and catching issues early.
