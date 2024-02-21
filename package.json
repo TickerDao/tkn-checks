@@ -11,6 +11,7 @@
     "license": "ISC",
     "dependencies": {
         "@ensdomains/ensjs": "^3.4.4",
+        "ethers": "^6.11.1",
         "viem": "^1.21.4"
     },
     "devDependencies": {
