@@ -27,9 +27,5 @@ describe('Viem.js Mainnet Contract Interaction', () => {
     expect(fields).toBeDefined();
     expect(fields).toHaveProperty('name', 'Rocket Pool');
     expect(fields).toHaveProperty('avatar', 'https://gateway.tkn.xyz/ipfs/bafybeie7wxtjqklcq63s5rowbcv75ut3rea6cijz2465p3uwdjikpchhji');
-    // let fields = Object.fromEntries(data);
-    // expect(fields).toBeDefined();
-    // expect(fields).toHaveProperty('name', 'Rocket Pool');
-    // expect(fields).toHaveProperty('avatar', 'https://gateway.tkn.xyz/ipfs/bafybeie7wxtjqklcq63s5rowbcv75ut3rea6cijz2465p3uwdjikpchhji');
   });
 });
