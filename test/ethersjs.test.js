@@ -105,6 +105,14 @@ describe('Ethers.js Mainnet Contract Interaction', () => {
     ], provider);
   });
 
+  test('Fetch L1Resolver resolved data', async () => {
+    const tick = 'op';
+    const result = await contract.lookup(ethers.ensNormalize(tick), {enableCcipRead: true})
+    let fields = Object.fromEntries(result);
+    expect(fields).toBeDefined();
+    expect(fields).toHaveProperty('name', 'Optimism');
+  });
+
   test('Fetch onchain metadata', async () => {
     const tick = 'rpl';
     const result = await contract.lookup(ethers.ensNormalize(tick), {enableCcipRead: true})
@@ -113,25 +121,30 @@ describe('Ethers.js Mainnet Contract Interaction', () => {
     expect(fields).toHaveProperty('name', 'Rocket Pool');
     expect(fields).toHaveProperty('avatar', 'https://gateway.tkn.xyz/ipfs/bafybeie7wxtjqklcq63s5rowbcv75ut3rea6cijz2465p3uwdjikpchhji');
     // expect(fields).toHaveProperty('addr_eth', '0xd33526068d116ce69f19a9ee46f0bd304f21a51f');
-
   });
 
-
   test('Fetch offchain metadata', async () => {
-    const tick = 'frames';
+    const tick = 'frame';
     const result = await contract.lookup(ethers.ensNormalize(tick), {enableCcipRead: true})
     let fields = Object.fromEntries(result);
     expect(fields).toBeDefined();
-    expect(fields).toHaveProperty('name', 'Rocket Pool');
+    expect(fields).toHaveProperty('name', 'Frame Token');
+  });
 
-    // fields = Object.fromEntries();
-    
-    // Assuming the structure of fields object is {key1: value1, key2: value2, ...}
-    // expect(fields).toBeDefined();
-    // expect(typeof fields).toBe('object');
-    // expect(Object.keys(fields)).toContain('key1');
-    // expect(fields.key1).toBeDefined();
-    // expect(fields.key2).toBeDefined();
+  test('Fetch offchain reverse resolution', async () => {
+    const tick = '0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8.ftm';
+    const result = await contract.lookup(ethers.ensNormalize(tick), {enableCcipRead: true})
+    let fields = Object.fromEntries(result);
+    expect(fields).toBeDefined();
+    expect(fields).toHaveProperty('name', 'Chainlink');
+  });
+
+  test('Fetch sidechain ticker', async () => {
+    const tick = 'dai.ftm';
+    const result = await contract.lookup(ethers.ensNormalize(tick), {enableCcipRead: true})
+    let fields = Object.fromEntries(result);
+    expect(fields).toBeDefined();
+    expect(fields).toHaveProperty('name', 'Dai');
   });
 
   

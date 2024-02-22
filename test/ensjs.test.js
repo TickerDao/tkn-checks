@@ -46,24 +46,7 @@ describe('ENS.js Library Tests', () => {
     expect(records.contentHash).toBeNull(); // Adjusted based on the provided output
   });
 
-  test('Retrieve reverse resolved address', async () => {
-    const token = '0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8.ftm'; // Chainlink reverse resolver
-    const records = await client.getRecords({
-      name: recordConfig.name(token),
-      coins: recordConfig.coins,
-      texts: recordConfig.texts,
-      contentHash: recordConfig.contentHash
-    });
 
-    // Check if records object is defined
-    expect(records).toBeDefined();
-
-    // Adjusted expectations based on the provided output structure
-    expect(records.texts).toContainEqual(expect.objectContaining({ key: 'name', value: 'Chainlink' }));
-    expect(records.texts).toContainEqual(expect.objectContaining({ key: 'description', value: 'A data oracle protocol' }));
-    expect(records.coins.length).toBeGreaterThan(0); // Check if coins array is not empty
-    expect(records.contentHash).toBeNull(); // Adjusted based on the provided output
-  });
 
   test('Retrieve records from names in a hybrid resolver', async () => {
     const token = 'op'; // Chainlink reverse resolver
@@ -99,5 +82,43 @@ describe('ENS.js Library Tests', () => {
     expect(records.coins.length).toBeGreaterThan(0); // Check if coins array is not empty
     // Verify if contentHash.decoded matches the expected IPFS hash
     expect(records.contentHash.decoded).toEqual('bafybeibeyaoc7y4nvoleq5x3mo3o4a4jazhvrogu236indpzhqkzbaxowu');
+  });
+
+  test('Retrieve reverse resolved address', async () => {
+    const token = '0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8.ftm'; // Chainlink reverse resolver
+    const records = await client.getRecords({
+      name: recordConfig.name(token),
+      coins: recordConfig.coins,
+      texts: recordConfig.texts,
+      contentHash: recordConfig.contentHash
+    });
+
+    // Check if records object is defined
+    expect(records).toBeDefined();
+
+    // Adjusted expectations based on the provided output structure
+    expect(records.texts).toContainEqual(expect.objectContaining({ key: 'name', value: 'Chainlink' }));
+    expect(records.texts).toContainEqual(expect.objectContaining({ key: 'description', value: 'A data oracle protocol' }));
+    expect(records.coins.length).toBeGreaterThan(0); // Check if coins array is not empty
+    expect(records.contentHash).toBeNull(); // Adjusted based on the provided output
+  });
+
+  test('Retrieve reverse resolved address', async () => {
+    const token = 'dai.ftm'; // Chainlink reverse resolver
+    const records = await client.getRecords({
+      name: recordConfig.name(token),
+      coins: recordConfig.coins,
+      texts: recordConfig.texts,
+      contentHash: recordConfig.contentHash
+    });
+
+    // Check if records object is defined
+    expect(records).toBeDefined();
+
+    // Adjusted expectations based on the provided output structure
+    expect(records.texts).toContainEqual(expect.objectContaining({ key: 'name', value: 'Dai' }));
+    expect(records.texts).toContainEqual(expect.objectContaining({ key: 'description', value: 'Collateral backed USD stablecoin by MakerDao' }));
+    expect(records.coins.length).toBeGreaterThan(0); // Check if coins array is not empty
+    expect(records.contentHash).toBeNull(); // Adjusted based on the provided output
   });
 });

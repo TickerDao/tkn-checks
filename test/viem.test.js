@@ -14,6 +14,18 @@ describe('Viem.js Mainnet Contract Interaction', () => {
     });
   });
 
+  test('Fetch L1Resolver resolved data', async () => {
+    const tick = 'op';
+    const data = await publicClient.readContract({
+      address: contractAddress,
+      abi: tnsABI,
+      functionName: 'lookup',
+      args: [tick]
+    });
+    let fields = data.reduce((obj, { k, v }) => ({ ...obj, [k]: v }), {});
+    expect(fields).toBeDefined();
+    expect(fields).toHaveProperty('name', 'Optimism');
+  });
 
   test('Fetch onchain metadata', async () => {
     const tick = 'rpl';
@@ -27,5 +39,44 @@ describe('Viem.js Mainnet Contract Interaction', () => {
     expect(fields).toBeDefined();
     expect(fields).toHaveProperty('name', 'Rocket Pool');
     expect(fields).toHaveProperty('avatar', 'https://gateway.tkn.xyz/ipfs/bafybeie7wxtjqklcq63s5rowbcv75ut3rea6cijz2465p3uwdjikpchhji');
+  });
+
+  test('Fetch offchain metadata', async () => {
+    const tick = 'frame';
+    const data = await publicClient.readContract({
+      address: contractAddress,
+      abi: tnsABI,
+      functionName: 'lookup',
+      args: [tick]
+    });
+    let fields = data.reduce((obj, { k, v }) => ({ ...obj, [k]: v }), {});
+    expect(fields).toBeDefined();
+    expect(fields).toHaveProperty('name', 'Frame Token');
+  });
+
+  test('Fetch offchain reverse resolution', async () => {
+    const tick = '0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8.ftm';
+    const data = await publicClient.readContract({
+      address: contractAddress,
+      abi: tnsABI,
+      functionName: 'lookup',
+      args: [tick]
+    });
+    let fields = data.reduce((obj, { k, v }) => ({ ...obj, [k]: v }), {});
+    expect(fields).toBeDefined();
+    expect(fields).toHaveProperty('name', 'Chainlink');
+  });
+
+  test('Fetch sidechain ticker', async () => {
+    const tick = 'dai.ftm';
+    const data = await publicClient.readContract({
+      address: contractAddress,
+      abi: tnsABI,
+      functionName: 'lookup',
+      args: [tick]
+    });
+    let fields = data.reduce((obj, { k, v }) => ({ ...obj, [k]: v }), {});
+    expect(fields).toBeDefined();
+    expect(fields).toHaveProperty('name', 'Dai');
   });
 });
