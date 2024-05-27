@@ -1,4 +1,4 @@
-// Testing wagmi core https://github.com/wevm/wagmi
+// Testing wagmi core https://wagmi.sh/core/getting-started
 
 const { http, createConfig, readContract } = require('@wagmi/core');
 const { mainnet, sepolia } = require('@wagmi/core/chains');
