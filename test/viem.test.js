@@ -41,7 +41,7 @@ describe('Viem.js Mainnet Contract Interaction', () => {
     expect(fields).toHaveProperty('avatar', 'https://gateway.tkn.xyz/ipfs/bafybeie7wxtjqklcq63s5rowbcv75ut3rea6cijz2465p3uwdjikpchhji');
   });
 
-  test('Fetch offchain metadata', async () => {
+  test('Fetch gateway metadata', async () => {
     const tick = 'frame';
     const data = await publicClient.readContract({
       address: contractAddress,
@@ -54,7 +54,7 @@ describe('Viem.js Mainnet Contract Interaction', () => {
     expect(fields).toHaveProperty('name', 'Frame Token');
   });
 
-  test('Fetch offchain reverse resolution', async () => {
+  test('Fetch gateway reverse resolution', async () => {
     const tick = '0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8.ftm';
     const data = await publicClient.readContract({
       address: contractAddress,
