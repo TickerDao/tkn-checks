@@ -13,7 +13,7 @@
         "@ensdomains/ensjs": "^3.4.4",
         "@wagmi/core": "^2.10.4",
         "ethers": "^6.11.1",
-        "viem": "^1.21.4"
+        "viem": "^2.13.1"
     },
     "devDependencies": {
         "jest": "^29.7.0"
