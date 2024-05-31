@@ -49,7 +49,7 @@ describe('ENS.js Library Tests', () => {
 
 
   test('Retrieve records from names in a hybrid resolver', async () => {
-    const token = 'op'; // Chainlink reverse resolver
+    const token = 'wbtc'; // Chainlink reverse resolver
     const records = await client.getRecords({
       name: recordConfig.name(token),
       coins: recordConfig.coins,
@@ -59,6 +59,23 @@ describe('ENS.js Library Tests', () => {
 
     // Check if records object is defined
     expect(records).toBeDefined();
+
+    const textReducer = text => text.reduce((obj, { key, value }) => ({ ...obj, [key.startsWith('com.') ? key.replace('com.', '') : key]: value }), {});
+    const coinReducer = coins => coins.reduce((acc, coin) => (acc[`$${coin.name}`] = coin.value, acc), {});
+
+
+    const textRecords = textReducer(records.texts);
+    const coinRecords = coinReducer(records.coins);
+
+    const jsonData = {
+      ...textRecords,
+      ...coinRecords,
+      ...records.contentHash
+    }
+
+    // console.log(coinReducer(records.coins))
+
+    console.log(jsonData)
 
     // Adjusted expectations based on the provided output structure
     expect(records.texts).toContainEqual(expect.objectContaining({ key: 'name', value: 'Optimism' }));
